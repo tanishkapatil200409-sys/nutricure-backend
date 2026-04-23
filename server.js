@@ -75,7 +75,7 @@ const symptomMap = {
 
 /* 🧠 FUNCTION TO GET ADVICE */
 function getAdvice(symptoms) {
-    symptoms = symptoms.toLowerCase();
+    symptoms = symptoms.toLowerCase().replace(//g,"_");;
 
     let adviceList = [];
 
