@@ -1,15 +1,16 @@
-app.post("/register", (req, res) => {
-    const fs = require("fs");
+function getAdvice(symptoms) {
+    // convert to lowercase and replace spaces with _
+    symptoms = symptoms.toLowerCase().replace(/ /g, "_");
 
-    let users = [];
+    let adviceList = [];
 
-    if (fs.existsSync("users.json")) {
-        users = JSON.parse(fs.readFileSync("users.json", "utf8"));
+    for (let key in symptomMap) {
+        if (symptoms.includes(key)) {
+            adviceList.push(symptomMap[key]);
+        }
     }
 
-    users.push(req.body);
-
-    fs.writeFileSync("users.json", JSON.stringify(users, null, 2));
-
-    res.json(req.body);
-});
+    return adviceList.length > 0
+        ? adviceList.join(" | ")
+        : "Eat balanced home food + stay hydrated";
+}
